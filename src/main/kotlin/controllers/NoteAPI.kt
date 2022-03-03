@@ -12,7 +12,7 @@ class NoteAPI {
 
     fun listAllNotes(): String {
         return if (notes.isEmpty()) {
-            "No notes stored"
+            "No notes stored!"
         } else {
             var listOfNotes = ""
             for (i in notes.indices) {
