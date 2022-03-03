@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.junit.jupiter:junit-jupiter:5.7.0")
     testImplementation(kotlin("test"))
     // dependencies for logging
     implementation("io.github.microutils:kotlin-logging:2.1.15")
