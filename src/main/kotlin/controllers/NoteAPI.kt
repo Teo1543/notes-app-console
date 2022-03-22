@@ -5,13 +5,11 @@ import persistence.Serializer
 import persistence.XMLSerializer
 import java.io.File
 
+
+
 class NoteAPI(serializerType: Serializer){
 
     private var serializer: Serializer = serializerType
-
-
-=======
-class NoteAPI {
 
 
     private var notes = ArrayList<Note>()
@@ -147,7 +145,7 @@ class NoteAPI {
     }
 
 
-=======
+
 
 
     fun isValidIndex(index: Int) :Boolean{
