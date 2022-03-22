@@ -1,8 +1,18 @@
 package controllers
 
 import models.Note
+import persistence.Serializer
+import persistence.XMLSerializer
+import java.io.File
 
+class NoteAPI(serializerType: Serializer){
+
+    private var serializer: Serializer = serializerType
+
+
+=======
 class NoteAPI {
+
 
     private var notes = ArrayList<Note>()
 
@@ -126,6 +136,19 @@ class NoteAPI {
     }
 
 
+    @Throws(Exception::class)
+    fun load() {
+        notes = serializer.read() as ArrayList<Note>
+    }
+
+    @Throws(Exception::class)
+    fun store() {
+        serializer.write(notes)
+    }
+
+
+=======
+
 
     fun isValidIndex(index: Int) :Boolean{
         return isValidListIndex(index, notes);
@@ -146,5 +169,6 @@ class NoteAPI {
         //if the note was not found, return false, indicating that the update was not successful
         return false
     }
+
 
 }
