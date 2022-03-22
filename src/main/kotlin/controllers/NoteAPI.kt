@@ -21,6 +21,21 @@ class NoteAPI {
         }
     }
 
+    fun numberOfNotes(): Int {
+        return notes.size
+    }
+
+    fun findNote(index: Int): Note? {
+        return if (isValidListIndex(index, notes)) {
+            notes[index]
+        } else null
+    }
+
+    //utility method to determine if an index is valid in a list.
+    fun isValidListIndex(index: Int, list: List<Any>): Boolean {
+        return (index >= 0 && index < list.size)
+    }
+
     fun listActiveNotes(): String {
         return if (numberOfActiveNotes() == 0) {
             "No active notes stored"
@@ -49,9 +64,7 @@ class NoteAPI {
         }
     }
 
-    fun numberOfNotes(): Int {
-        return notes.size
-    }
+
 
     fun numberOfArchivedNotes(): Int {
         //return notes.stream().filter { obj: Note -> obj.isNoteArchived }.count().toInt()
@@ -104,16 +117,5 @@ class NoteAPI {
             }
         }
         return counter
-    }
-
-    fun findNote(index: Int): Note? {
-        return if (isValidListIndex(index, notes)) {
-            notes[index]
-        } else null
-    }
-
-    //utility method to determine if an index is valid in a list.
-    fun isValidListIndex(index: Int, list: List<Any>): Boolean {
-        return (index >= 0 && index < list.size)
     }
 }
