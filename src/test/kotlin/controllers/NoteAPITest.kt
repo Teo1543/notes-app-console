@@ -20,6 +20,7 @@ class NoteAPITest {
     private var populatedNotes: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
     private var emptyNotes: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
 
+
     @BeforeEach
     fun setup(){
         learnKotlin = Note("Learning Kotlin", 5, "College", false)

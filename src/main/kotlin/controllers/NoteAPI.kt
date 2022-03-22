@@ -9,8 +9,6 @@ class NoteAPI(serializerType: Serializer){
 
     private var serializer: Serializer = serializerType
 
-    private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
-
     private var notes = ArrayList<Note>()
 
     fun add(note: Note): Boolean {
