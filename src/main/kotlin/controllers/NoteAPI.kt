@@ -64,8 +64,6 @@ class NoteAPI {
         }
     }
 
-
-
     fun numberOfArchivedNotes(): Int {
         //return notes.stream().filter { obj: Note -> obj.isNoteArchived }.count().toInt()
         var counter = 0
