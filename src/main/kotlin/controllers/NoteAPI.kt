@@ -9,9 +9,14 @@ class NoteAPI(serializerType: Serializer){
 
     private var serializer: Serializer = serializerType
 
+
+=======
+class NoteAPI {
+
+
     private var notes = ArrayList<Note>()
 
-    fun add(note: Note): Boolean {
+    fun add(note: models.Note): Boolean {
         return notes.add(note)
     }
 
@@ -130,6 +135,7 @@ class NoteAPI(serializerType: Serializer){
         else null
     }
 
+
     @Throws(Exception::class)
     fun load() {
         notes = serializer.read() as ArrayList<Note>
@@ -140,6 +146,29 @@ class NoteAPI(serializerType: Serializer){
         serializer.write(notes)
     }
 
+
+=======
+
+
+    fun isValidIndex(index: Int) :Boolean{
+        return isValidListIndex(index, notes);
+    }
+
+    fun updateNote(indexToUpdate: Int, note: Note?): Boolean {
+        //find the note object by the index number
+        val foundNote = findNote(indexToUpdate)
+
+        //if the note exists, use the note details passed as parameters to update the found note in the ArrayList.
+        if ((foundNote != null) && (note != null)) {
+            foundNote.noteTitle = note.noteTitle
+            foundNote.notePriority = note.notePriority
+            foundNote.noteCategory = note.noteCategory
+            return true
+        }
+
+        //if the note was not found, return false, indicating that the update was not successful
+        return false
+    }
 
 
 }
