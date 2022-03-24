@@ -25,6 +25,7 @@ fun runMenu() {
             3 -> updateNote()
             4 -> deleteNote()
             5 -> archiveNote()
+            6 -> searchNotes()
             20 -> save()
             21 -> load()
             0 -> exitApp()
