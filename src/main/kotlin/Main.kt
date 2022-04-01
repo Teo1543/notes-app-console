@@ -2,12 +2,11 @@ import controllers.NoteAPI
 import models.Note
 import mu.KotlinLogging
 import persistence.JSONSerializer
-import persistence.XMLSerializer
-import utils.ScannerInput
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import java.io.File
 import java.lang.System.exit
+
 private val logger = KotlinLogging.logger {}
 //private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
 private val noteAPI = NoteAPI(JSONSerializer(File("notes.json")))
@@ -22,10 +21,11 @@ fun runMenu() {
         when (option) {
             1 -> addNote()
             2 -> listNotes()
-            3 -> updateNote()
-            4 -> deleteNote()
-            5 -> archiveNote()
-            6 -> searchNotes()
+            3 -> listActiveNotesByCategory()
+            4 -> updateNote()
+            5 -> deleteNote()
+            6 -> archiveNote()
+            7 -> searchNotes()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -37,21 +37,22 @@ fun runMenu() {
 fun mainMenu(): Int {
     return readNextInt(
         """ 
-         > ----------------------------------
-         > |        NOTE KEEPER APP         |
-         > ----------------------------------
-         > | NOTE MENU                      |
-         > |   1) Add a note                |
-         > |   2) List notes                |
-         > |   3) Update a note             |
-         > |   4) Delete a note             |
-         > |   5) Archive a note            |
-         > |   6) Search notes              |
-         > ----------------------------------
-         > |   20) Save notes               |
-         > |   21) Load notes               |
-         > |   0) Exit                      |
-         > ----------------------------------
+         > --------------------------------------
+         > |        NOTE KEEPER APP             |
+         > --------------------------------------
+         > | NOTE MENU                          |
+         > |   1) Add a note                    |
+         > |   2) List notes                    |
+         > |   3) List Active Notes By Category |
+         > |   4) Update a note                 |
+         > |   5) Delete a note                 |
+         > |   6) Archive a note                |
+         > |   7) Search notes                  |
+         > --------------------------------------
+         > |   20) Save notes                   |
+         > |   21) Load notes                   |
+         > |   0) Exit                          |
+         > --------------------------------------
          > ==>> """.trimMargin(">")
     )
 }
@@ -85,10 +86,37 @@ fun listNotes() {
             1 -> listAllNotes();
             2 -> listActiveNotes();
             3 -> listArchivedNotes();
+          //  4 -> noteContents();
+          //  5 -> noteStatus();
+          //  6 -> listEvenNotes();
+          //  7 -> listOddNotes();
             else -> println("Invalid option entered: " + option);
         }
     } else {
         println("Option Invalid - No notes stored");
+    }
+}
+
+fun listActiveNotesByCategory() {
+    if (noteAPI.numberOfNotes() > 0) {
+        val option = readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) List Low priority       |
+                  > |   2) List Mid Priority       |
+                  > |   3) List High Priority      |
+                  > --------------------------------
+         > ==>> """.trimMargin(">"))
+
+        when (option) {
+            1 -> listActiveLowPriorityNotes();
+            2 -> listActiveMidPriorityNotes();
+            3 -> listActiveHighPriorityNotes();
+            else -> println("Invalid option entered: " + option);
+        }
+    }
+    else {
+        println("Option Invalid - No active notes stored");
     }
 }
 
@@ -182,6 +210,81 @@ fun searchNotes() {
         println(searchResults)
     }
 }
+
+
+
+
+
+
+fun listActiveLowPriorityNotes() {
+    val searchPriority = readNextInt("enter the number between 1 and 2: \n")
+    val searchResult = noteAPI.searchByLowPriority(searchPriority)
+    if (searchResult.equals(null)) {
+        println(searchPriority)
+    } else {
+        println(searchPriority)
+    }
+}
+
+
+fun listActiveMidPriorityNotes() {
+    val searchPriority = readNextInt("enter the number 3: \n")
+    val searchResult = noteAPI.searchByMidPriority(searchPriority)
+    if (searchResult.equals(null)) {
+        println(searchPriority)
+    } else {
+        println(searchPriority)
+    }
+}
+
+fun listActiveHighPriorityNotes() {
+    val searchPriority = readNextInt("enter the number between 4 and 5: \n")
+    val searchResult = noteAPI.searchByHighPriority(searchPriority)
+    if (searchResult.equals(null)) {
+        println(searchPriority)
+    } else {
+        println(searchPriority)
+    }
+}
+
+
+
+
+
+
+
+
+//extra work week 8
+/*
+fun noteContents() {
+    val array = intArrayOf(1, 2, 3, 4, 5); for (element in array) { println(element) }
+}
+
+fun noteStatus() {
+    if (note is String) {
+        print(note.length)
+    }
+}
+
+
+//extra work week 7
+
+//Source: https://www.knowledgefactory.net/2021/12/kotlin-print-odd-even-numbers-from-array-list-set.html
+
+fun listEvenNotes() {
+    val numbers = listOf(1, 4, 8, 40, 11, 22, 33, 99)
+    val evenNumbers = numbers.stream().filter { o: Int -> o % 2 == 0 }.collect(Collectors.toList())
+    println(evenNumbers)
+}
+
+
+
+fun listOddNotes() {
+        val numbers = listOf(1, 4, 8, 40, 11, 22, 33, 99)
+        val oddNumbers = numbers.stream().filter { o: Int -> o % 2 != 0 }.collect(Collectors.toList())
+        println(oddNumbers)
+    }
+ */
 
 fun exitApp(){
     println("Exiting...bye")

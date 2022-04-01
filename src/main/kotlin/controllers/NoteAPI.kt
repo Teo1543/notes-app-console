@@ -52,7 +52,29 @@ class NoteAPI(serializerType: Serializer){
             }
         }
     }
+/*
+    fun listActiveNotesByCategory(category: Int): String {
+        return if (notes.isEmpty()) {
+            "No Active Notes Stored"
+        } else {
+            var listOfNotes = ""
+            for (i in notes.indices) {
+                if (notes[i].notePriority == category) {
+                    listOfNotes +=
+                        """$i: ${notes[i]}
+                            """.trimIndent()
+                }
+            }
+            if(listOfNotes.equals("")) {
+                "No notes within this category: $category"
+            }
+            else {
+                "${numberOfNotes()} notes with category $category: $listOfNotes"
+            }
+        }
+    }
 
+ */
 
     fun deleteNote(indexToDelete: Int): Note? {
         return if (isValidListIndex(indexToDelete, notes)) {
@@ -111,11 +133,36 @@ class NoteAPI(serializerType: Serializer){
 
     fun numberOfNotesByPriority(priority: Int): Int = notes.count { note : Note -> note.isNoteArchived }
 
-    //add few more searchBy or numberOf
 
     fun searchByTitle (searchString : String) =
         formatListString(
             notes.filter { note -> note.noteTitle.contains(searchString, ignoreCase = true) })
+
+
+
+
+    fun searchByLowPriority (intRange: Int) =
+        (
+            notes.indexOf(Note(noteTitle = "Test1", notePriority = 2, noteCategory = "Test", isNoteArchived = true))
+
+                )
+
+    fun searchByMidPriority (intRange: Int) =
+        (
+            notes.indexOf(Note(noteTitle = "Test1", notePriority = 3, noteCategory = "Test", isNoteArchived = true))
+
+                )
+
+
+    fun searchByHighPriority (intRange: Int) =
+        (
+            notes.indexOf(Note(noteTitle = "Test1", notePriority = 5, noteCategory = "Test", isNoteArchived = true))
+
+                )
+
+
+
+
 
     fun formatListString(notesToFormat : List<Note>) : String =
         notesToFormat
@@ -133,5 +180,6 @@ class NoteAPI(serializerType: Serializer){
     fun listArchivedNotes(): String =
         if  (numberOfArchivedNotes() == 0) "No archived notes stored"
         else formatListString(notes.filter { note -> note.isNoteArchived})
+
 
 }

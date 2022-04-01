@@ -167,7 +167,6 @@ class NoteAPITest {
             assertFalse(priority4String.contains("learning kotlin"))
             assertFalse(priority4String.contains("summer holiday"))
         }
-
     }
 
     @Nested
