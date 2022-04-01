@@ -139,7 +139,9 @@ class NoteAPI(serializerType: Serializer){
             notes.filter { note -> note.noteTitle.contains(searchString, ignoreCase = true) })
 
 
-
+/*made an attempt on the idea that was given to me.
+The code is running without any errors whatsoever, but its not printing the list to the console.
+ */
 
     fun searchByLowPriority (intRange: Int) =
         (

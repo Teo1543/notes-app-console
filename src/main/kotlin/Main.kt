@@ -213,8 +213,9 @@ fun searchNotes() {
 
 
 
-
-
+/*made an attempt on the idea that was given to me.
+The code is running without any errors whatsoever, but its not printing the list to the console.
+ */
 
 fun listActiveLowPriorityNotes() {
     val searchPriority = readNextInt("enter the number between 1 and 2: \n")
